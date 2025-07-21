@@ -34,8 +34,8 @@ contract Secure_Vote_Chain {
 
     // 投票記録
     struct VOTES {
-        address voter;
-        address candidate;
+        address voter_addr;
+        address candidate_addr;
         uint vote_time;
     }
 
