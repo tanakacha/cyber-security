@@ -1,0 +1,65 @@
+{
+	"compiler": {
+		"version": "0.4.26+commit.4563c3fc"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"constant": true,
+				"inputs": [],
+				"name": "GetHelloWorld",
+				"outputs": [
+					{
+						"name": "",
+						"type": "string"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"constant": false,
+				"inputs": [
+					{
+						"name": "_text",
+						"type": "string"
+					}
+				],
+				"name": "ChangeText",
+				"outputs": [],
+				"payable": false,
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"methods": {}
+		},
+		"userdoc": {
+			"methods": {}
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"sample/HelloWorld.sol": "HelloWorld"
+		},
+		"evmVersion": "byzantium",
+		"libraries": {},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"sample/HelloWorld.sol": {
+			"keccak256": "0xbccecd707df8706f99401f8c96c4de3271cc42f94ba9e3efc37fbc9ff4941c02",
+			"urls": [
+				"bzzr://15c1ff9dfc4cfbfc18d9b3dd684d6c1c205c60fc58a080cf1434ca543a8b95ae"
+			]
+		}
+	},
+	"version": 1
+}

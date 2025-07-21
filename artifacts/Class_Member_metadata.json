@@ -1,0 +1,82 @@
+{
+	"compiler": {
+		"version": "0.4.26+commit.4563c3fc"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"constant": false,
+				"inputs": [
+					{
+						"name": "_ID",
+						"type": "string"
+					},
+					{
+						"name": "_name",
+						"type": "string"
+					},
+					{
+						"name": "_score",
+						"type": "int256"
+					}
+				],
+				"name": "add_member",
+				"outputs": [],
+				"payable": false,
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"constant": true,
+				"inputs": [
+					{
+						"name": "_ID",
+						"type": "string"
+					}
+				],
+				"name": "view_member",
+				"outputs": [
+					{
+						"name": "_name",
+						"type": "string"
+					},
+					{
+						"name": "_score",
+						"type": "int256"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"methods": {}
+		},
+		"userdoc": {
+			"methods": {}
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"sample/Class.sol": "Class_Member"
+		},
+		"evmVersion": "byzantium",
+		"libraries": {},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"sample/Class.sol": {
+			"keccak256": "0xb0b7a972eca383e09547b431988f00af0eda8835c36f5fc1991a39a84082d4b1",
+			"urls": [
+				"bzzr://1cf26309be1c51e57eb8450e406eba715da87d8019104378c7c854013c8729ef"
+			]
+		}
+	},
+	"version": 1
+}
