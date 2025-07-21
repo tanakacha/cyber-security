@@ -2,9 +2,10 @@
 pragma solidity ~0.4.24;
 
 contract Secure_Vote_Chain {
-    // 有権者、非有権者、管理者、候補者、政府
-    enum ROLE {VOTER, NON_VOTER, ADMIN, CONDIDATE, GOV}
+    // 有権者、非有権者、管理者、候補者
+    enum ROLE {VOTER, NON_VOTER, ADMIN, CONDIDATE}
 
+    // 政府
     address GOV_addr;
 
     struct MEMBER {
