@@ -19,6 +19,7 @@ contract Secure_Vote_Chain {
     struct VOTERS {
         string name;
         string city;
+        bool city_confirm;
         bool vote_flag;
     }
 
@@ -53,10 +54,27 @@ contract Secure_Vote_Chain {
         members[_addr] = MEMBER(_name, _role, true);
     }
 
+    // 有権者が自分の情報を登録
+    function register_voter(address _addr, string _name, string _city) only_account_owner(_addr) only_voter(_addr) public {
+        voters[_addr] = VOTERS(_name, _city, false, false);
+    }
+
     // 有権者が立候補
-    function change_condidate(address _addr) only_account_owner(_addr) only_voter(_addr) public{
+    /*
+        1. 立候補者のロールを変更
+        2. 候補者の情報を登録(氏名は有権者情報から取得、立候補する市は自分で入力)
+        3. 立候補の承認を政府に依頼
+
+    */
+    function change_condidate(address _addr, string _city) only_account_owner(_addr) only_voter(_addr) public{
         members[_addr].role = ROLE.CONDIDATE;
+        candidates[_addr] = CANDIDATES(voters[_addr].name, _city);
         members[_addr].role_confirm = false; 
+    }
+
+    // 政府が有権者情報を承認
+    function approval_voter(address _addr) only_GOV public {
+        voters[_addr].city_confirm = true;
     }
 
     // 政府が立候補を承認
