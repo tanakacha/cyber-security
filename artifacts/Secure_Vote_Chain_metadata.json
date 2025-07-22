@@ -67,6 +67,10 @@
 					{
 						"name": "",
 						"type": "string"
+					},
+					{
+						"name": "",
+						"type": "string"
 					}
 				],
 				"payable": false,
@@ -90,24 +94,6 @@
 					}
 				],
 				"name": "register_member",
-				"outputs": [],
-				"payable": false,
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"constant": false,
-				"inputs": [
-					{
-						"name": "_addr",
-						"type": "address"
-					},
-					{
-						"name": "_city",
-						"type": "string"
-					}
-				],
-				"name": "change_condidate",
 				"outputs": [],
 				"payable": false,
 				"stateMutability": "nonpayable",
@@ -138,6 +124,28 @@
 				],
 				"payable": false,
 				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"constant": false,
+				"inputs": [
+					{
+						"name": "_addr",
+						"type": "address"
+					},
+					{
+						"name": "_city",
+						"type": "string"
+					},
+					{
+						"name": "_party",
+						"type": "string"
+					}
+				],
+				"name": "change_condidate",
+				"outputs": [],
+				"payable": false,
+				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -182,9 +190,9 @@
 	},
 	"sources": {
 		"main.sol": {
-			"keccak256": "0x60aab03cda6cd1d22bc0b0392a2aa60886f3b2aef4bbdbcc4df06ba28fe37f4f",
+			"keccak256": "0x9e265d31beac17e940dde42388fb509367b30a954991db2f80fa26d905287815",
 			"urls": [
-				"bzzr://950deeb72937c3a863d04fc63b85c78b2f77142865b7a4cf18b75b274717d6ca"
+				"bzzr://7a2f0275f4a83c9cb2016dc7026bbb4e8bd7e4f18b612772d95be6a27b237833"
 			]
 		}
 	},

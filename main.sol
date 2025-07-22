@@ -28,6 +28,7 @@ contract Secure_Vote_Chain {
     struct CANDIDATES {
         string name;
         string city;
+        string party;
     }
 
     mapping (address => CANDIDATES) candidates;
@@ -66,9 +67,9 @@ contract Secure_Vote_Chain {
         4. 有権者情報の消去
 
     */
-    function change_condidate(address _addr, string _city) only_account_owner(_addr) only_voter(_addr) public{
+    function change_condidate(address _addr, string _city, string _party) only_account_owner(_addr) only_voter(_addr) public{
         members[_addr].role = ROLE.CONDIDATE;
-        candidates[_addr] = CANDIDATES(voters[_addr].name, _city);
+        candidates[_addr] = CANDIDATES(voters[_addr].name, _city, _party);
         members[_addr].role_confirm = false;
         voters[_addr] = VOTERS("", "" , false);
     }
@@ -89,8 +90,8 @@ contract Secure_Vote_Chain {
     }
 
     // 候補者情報の確認
-    function view_candidate(address _addr) public view returns(string, string) {
-        return (candidates[_addr].name, candidates[_addr].city);
+    function view_candidate(address _addr) public view returns(string, string, string) {
+        return (candidates[_addr].name, candidates[_addr].city, candidates[_addr].party);
     }
 
     // modifier
