@@ -3,7 +3,7 @@ pragma solidity ~0.4.24;
 
 contract Secure_Vote_Chain {
     // 有権者、非有権者、管理者、候補者、政府
-    enum ROLE {VOTER, NON_VOTER, ADMIN, CONDIDATE, GOV}
+    enum ROLE {VOTER, NON_VOTER, ADMIN, CANDIDATE, GOV}
 
     address GOV_addr;
 
@@ -67,15 +67,15 @@ contract Secure_Vote_Chain {
         4. 有権者情報の消去
 
     */
-    function change_condidate(address _addr, string _city, string _party) only_account_owner(_addr) only_voter(_addr) public{
-        members[_addr].role = ROLE.CONDIDATE;
+    function change_CANDIDATE(address _addr, string _city, string _party) only_account_owner(_addr) only_voter(_addr) public{
+        members[_addr].role = ROLE.CANDIDATE;
         candidates[_addr] = CANDIDATES(voters[_addr].name, _city, _party);
         members[_addr].role_confirm = false;
-        voters[_addr] = VOTERS("", "" , false);
+        delete voters[_addr];
     }
 
     // 政府が立候補を承認
-    function approval_condidate(address _addr) only_GOV public {
+    function approval_CANDIDATE(address _addr) only_GOV public {
         members[_addr].role_confirm = true;
     }
 

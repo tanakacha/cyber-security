@@ -190,9 +190,9 @@
 	},
 	"sources": {
 		"main.sol": {
-			"keccak256": "0x9e265d31beac17e940dde42388fb509367b30a954991db2f80fa26d905287815",
+			"keccak256": "0x72a793c315cda17cbe5778503ef732dba795eec9507d3cc699bc72d4717e898b",
 			"urls": [
-				"bzzr://7a2f0275f4a83c9cb2016dc7026bbb4e8bd7e4f18b612772d95be6a27b237833"
+				"bzzr://afda6f9d32c3a8307aaf1eb493803d1011aebe4aff6b68d46cfec220fd7633a4"
 			]
 		}
 	},
