@@ -6,17 +6,71 @@
 	"output": {
 		"abi": [
 			{
-				"constant": false,
+				"constant": true,
 				"inputs": [
 					{
 						"name": "_addr",
 						"type": "address"
 					}
 				],
-				"name": "change_condidate",
+				"name": "view_voter",
+				"outputs": [
+					{
+						"name": "",
+						"type": "string"
+					},
+					{
+						"name": "",
+						"type": "string"
+					},
+					{
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"constant": false,
+				"inputs": [
+					{
+						"name": "_addr",
+						"type": "address"
+					},
+					{
+						"name": "_city",
+						"type": "string"
+					}
+				],
+				"name": "register_voter",
 				"outputs": [],
 				"payable": false,
 				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"constant": true,
+				"inputs": [
+					{
+						"name": "_addr",
+						"type": "address"
+					}
+				],
+				"name": "view_candidate",
+				"outputs": [
+					{
+						"name": "",
+						"type": "string"
+					},
+					{
+						"name": "",
+						"type": "string"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
 				"type": "function"
 			},
 			{
@@ -42,6 +96,24 @@
 				"type": "function"
 			},
 			{
+				"constant": false,
+				"inputs": [
+					{
+						"name": "_addr",
+						"type": "address"
+					},
+					{
+						"name": "_city",
+						"type": "string"
+					}
+				],
+				"name": "change_condidate",
+				"outputs": [],
+				"payable": false,
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
 				"constant": true,
 				"inputs": [
 					{
@@ -49,7 +121,7 @@
 						"type": "address"
 					}
 				],
-				"name": "check_member",
+				"name": "view_member",
 				"outputs": [
 					{
 						"name": "",
@@ -110,9 +182,9 @@
 	},
 	"sources": {
 		"main.sol": {
-			"keccak256": "0xbaf731b7a77925262956d8cac5892b8dd03e7b7404aaca7bf2f2a78b46a93c4a",
+			"keccak256": "0x60aab03cda6cd1d22bc0b0392a2aa60886f3b2aef4bbdbcc4df06ba28fe37f4f",
 			"urls": [
-				"bzzr://f6b987f4b5f42e750ae32238c36579fdcd649d25effdf149aec5cb2737aa8e61"
+				"bzzr://950deeb72937c3a863d04fc63b85c78b2f77142865b7a4cf18b75b274717d6ca"
 			]
 		}
 	},
