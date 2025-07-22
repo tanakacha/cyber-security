@@ -1,0 +1,200 @@
+{
+	"compiler": {
+		"version": "0.4.26+commit.4563c3fc"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"constant": true,
+				"inputs": [
+					{
+						"name": "_addr",
+						"type": "address"
+					}
+				],
+				"name": "view_voter",
+				"outputs": [
+					{
+						"name": "",
+						"type": "string"
+					},
+					{
+						"name": "",
+						"type": "string"
+					},
+					{
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"constant": false,
+				"inputs": [
+					{
+						"name": "_addr",
+						"type": "address"
+					},
+					{
+						"name": "_city",
+						"type": "string"
+					}
+				],
+				"name": "register_voter",
+				"outputs": [],
+				"payable": false,
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"constant": true,
+				"inputs": [
+					{
+						"name": "_addr",
+						"type": "address"
+					}
+				],
+				"name": "view_candidate",
+				"outputs": [
+					{
+						"name": "",
+						"type": "string"
+					},
+					{
+						"name": "",
+						"type": "string"
+					},
+					{
+						"name": "",
+						"type": "string"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"constant": false,
+				"inputs": [
+					{
+						"name": "_addr",
+						"type": "address"
+					},
+					{
+						"name": "_name",
+						"type": "string"
+					},
+					{
+						"name": "_role",
+						"type": "uint8"
+					}
+				],
+				"name": "register_member",
+				"outputs": [],
+				"payable": false,
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"constant": true,
+				"inputs": [
+					{
+						"name": "_addr",
+						"type": "address"
+					}
+				],
+				"name": "view_member",
+				"outputs": [
+					{
+						"name": "",
+						"type": "string"
+					},
+					{
+						"name": "",
+						"type": "uint8"
+					},
+					{
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"constant": false,
+				"inputs": [
+					{
+						"name": "_addr",
+						"type": "address"
+					},
+					{
+						"name": "_city",
+						"type": "string"
+					},
+					{
+						"name": "_party",
+						"type": "string"
+					}
+				],
+				"name": "change_condidate",
+				"outputs": [],
+				"payable": false,
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"constant": false,
+				"inputs": [
+					{
+						"name": "_addr",
+						"type": "address"
+					}
+				],
+				"name": "approval_condidate",
+				"outputs": [],
+				"payable": false,
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"payable": false,
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			}
+		],
+		"devdoc": {
+			"methods": {}
+		},
+		"userdoc": {
+			"methods": {}
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"main.sol": "Secure_Vote_Chain"
+		},
+		"evmVersion": "byzantium",
+		"libraries": {},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"main.sol": {
+			"keccak256": "0x72a793c315cda17cbe5778503ef732dba795eec9507d3cc699bc72d4717e898b",
+			"urls": [
+				"bzzr://afda6f9d32c3a8307aaf1eb493803d1011aebe4aff6b68d46cfec220fd7633a4"
+			]
+		}
+	},
+	"version": 1
+}
