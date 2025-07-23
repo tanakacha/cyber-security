@@ -91,7 +91,6 @@ contract Secure_Vote_Chain {
         delete voters[_addr];
     }
 
-
     // メンバー情報の確認(デバッグ用の関数)
     function view_member(address _addr) public view returns(string, ROLE, bool) {
         // memory: 明示的にメモリ上にコピーすることを宣言
@@ -118,7 +117,7 @@ contract Secure_Vote_Chain {
     }
 
     /// modifier
-    // 自分のメンバーIDのみ実行
+    // 本人(addressが一致)のみ実行
     modifier only_account_owner(address _addr) {
         require(msg.sender == _addr);
         _;
@@ -130,7 +129,7 @@ contract Secure_Vote_Chain {
         _;
     }
     
-    // 政府のみ実行
+    // 選挙管理委員のみ実行
     modifier only_ADMIN {
         require(msg.sender == ADMIN_addr);
         _;
