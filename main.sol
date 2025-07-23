@@ -42,6 +42,7 @@ contract Secure_Vote_Chain {
     }
 
     mapping (uint => VOTES) votes;
+    uint public vote_count = 0;
 
     // コンストラクタ
     constructor() public {
@@ -91,6 +92,14 @@ contract Secure_Vote_Chain {
         delete voters[_addr];
     }
 
+    // 投票(投票記録の追加)
+    function vote(address _addr, address _candidate_addr, string _city) only_account_owner(_addr) only_voter(_addr) only_non_voter(_addr) only_voters_living_city(_addr, _city) public {
+        votes[vote_count].voter_addr = _addr;
+        votes[vote_count].candidate_addr = _candidate_addr;
+        votes[vote_count].vote_time = 11;
+        voters[_addr].vote_flag = true; // Use _addr instead of vote_count
+        vote_count++;
+    }
 
     // メンバー情報の確認(デバッグ用の関数)
     function view_member(address _addr) public view returns(string, ROLE, bool) {
@@ -118,7 +127,7 @@ contract Secure_Vote_Chain {
     }
 
     /// modifier
-    // 自分のメンバーIDのみ実行
+    // 本人(addressが一致)のみ実行
     modifier only_account_owner(address _addr) {
         require(msg.sender == _addr);
         _;
@@ -129,10 +138,24 @@ contract Secure_Vote_Chain {
         require(members[_addr].role == ROLE.VOTER);
         _;
     }
-    
-    // 政府のみ実行
+
+    // 選挙管理委員のみ実行
     modifier only_ADMIN {
         require(msg.sender == ADMIN_addr);
+        _;
+    }
+
+    // 該当する市に住んでいる人のみ
+    modifier only_voters_living_city(address _addr, string _city) {
+        // ストレージ内の文字列とメモリ内の文字列を直接比較することができないため
+        string memory voter_city = voters[_addr].city;
+        require(keccak256(bytes(voter_city)) == keccak256(bytes(_city)));
+        _;
+    }
+
+    // 未投票者のみ
+    modifier only_non_voter(address _addr) {
+        require(voters[_addr].vote_flag == false);
         _;
     }
 }
