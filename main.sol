@@ -2,10 +2,11 @@
 pragma solidity ~0.4.24;
 
 contract Secure_Vote_Chain {
-    // 有権者、非有権者、管理者、候補者、政府
-    enum ROLE {VOTER, NON_VOTER, ADMIN, CANDIDATE, GOV}
+    // 有権者、候補者
+    enum ROLE {VOTER, CANDIDATE}
 
-    address GOV_addr;
+    // 選挙管理委員会
+    address ADMIN_addr;
 
     struct MEMBER {
         string name;
@@ -19,7 +20,7 @@ contract Secure_Vote_Chain {
     struct VOTERS {
         string name;
         string city;
-        bool vote_flag;
+        bool vote_flag; // 投票済みかどうか、true: 投票済み, false: 未投票
     }
 
     mapping (address => VOTERS) voters;
@@ -42,21 +43,29 @@ contract Secure_Vote_Chain {
 
     mapping (uint => VOTES) votes;
 
-    // コンストラクタ(GOV fuctions)
+    // コンストラクタ
     constructor() public {
-        GOV_addr = msg.sender;
+        ADMIN_addr = msg.sender;
     }
 
-    // 関数
+    /// 関数
 
-    // 政府がMEMBERを登録(デバッグ用の関数)
-    function register_member(address _addr, string _name, ROLE _role) only_GOV public {
-        members[_addr] = MEMBER(_name, _role, true);
+    // 選挙管理委員会の関数
+    // 選挙管理委員会が立候補を承認
+    function approval_candidate(address _addr) only_ADMIN public {
+        members[_addr].role_confirm = true;
     }
 
-    // 政府が有権者情報を登録
-    function register_voter(address _addr, string _city) only_GOV public {
-        voters[_addr] = VOTERS(members[_addr].name, _city, false);
+    // 選挙管理委員会が立候補を不承認
+    function disapproval_candidate(address _addr) only_ADMIN public {
+        members[_addr].role_confirm = false;
+    }
+
+    // 有権者情報を登録する関数(有権者以外の登録は許容しないシステム設計)
+    function add_infor(address _addr, string _name) only_account_owner(_addr) public {
+        members[_addr].name = _name;
+        members[_addr].role = ROLE.VOTER;
+        members[_addr].role_confirm = false;
     }
 
     // 有権者が立候補
@@ -67,34 +76,48 @@ contract Secure_Vote_Chain {
         4. 有権者情報の消去
 
     */
-    function change_CANDIDATE(address _addr, string _city, string _party) only_account_owner(_addr) only_voter(_addr) public{
+
+    function become_candidate(address _addr, string _city, string _party) only_account_owner(_addr) only_voter(_addr) public{
+        // メンバー情報の更新
         members[_addr].role = ROLE.CANDIDATE;
-        candidates[_addr] = CANDIDATES(voters[_addr].name, _city, _party);
         members[_addr].role_confirm = false;
+
+        // 候補者情報の登録
+        candidates[_addr].name = voters[_addr].name;
+        candidates[_addr].city = _city;
+        candidates[_addr].party = _party;
+
+        // 有権者情報の消去
         delete voters[_addr];
     }
 
-    // 政府が立候補を承認
-    function approval_CANDIDATE(address _addr) only_GOV public {
-        members[_addr].role_confirm = true;
-    }
 
-    // MEMBERの確認(デバッグ用の関数)
+    // メンバー情報の確認(デバッグ用の関数)
     function view_member(address _addr) public view returns(string, ROLE, bool) {
-        return (members[_addr].name, members[_addr].role, members[_addr].role_confirm);
+        // memory: 明示的にメモリ上にコピーすることを宣言
+        string memory _name = members[_addr].name;
+        ROLE _role = members[_addr].role;
+        bool _role_confirm = members[_addr].role_confirm;
+        return (_name, _role, _role_confirm);
     }
 
     // 有権者情報の確認(デバッグ用の関数)
     function view_voter(address _addr) public view returns(string, string, bool) {
-        return (voters[_addr].name, voters[_addr].city, voters[_addr].vote_flag);
+        string memory _name = voters[_addr].name;
+        string memory _city = voters[_addr].city;
+        bool _vote_flag = voters[_addr].vote_flag;
+        return (_name, _city, _vote_flag);
     }
 
     // 候補者情報の確認
     function view_candidate(address _addr) public view returns(string, string, string) {
-        return (candidates[_addr].name, candidates[_addr].city, candidates[_addr].party);
+        string memory _name = candidates[_addr].name;
+        string memory _city = candidates[_addr].city;
+        string memory _party = candidates[_addr].party;
+        return (_name, _city, _party);
     }
 
-    // modifier
+    /// modifier
     // 自分のメンバーIDのみ実行
     modifier only_account_owner(address _addr) {
         require(msg.sender == _addr);
@@ -108,8 +131,8 @@ contract Secure_Vote_Chain {
     }
     
     // 政府のみ実行
-    modifier only_GOV {
-        require(msg.sender == GOV_addr);
+    modifier only_ADMIN {
+        require(msg.sender == ADMIN_addr);
         _;
     }
 }
