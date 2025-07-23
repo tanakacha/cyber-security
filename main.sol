@@ -92,22 +92,30 @@ contract Secure_Vote_Chain {
     }
 
 
-    // MEMBERの確認(デバッグ用の関数)
-    function view_member(address _addr) public view returns(string _name, ROLE _role, bool _role_confirm) {
-        _name = members[_addr].name;
-        _role = members[_addr].role;
-        _role_confirm = members[_addr].role_confirm;
+    // メンバー情報の確認(デバッグ用の関数)
+    function view_member(address _addr) public view returns(string, ROLE, bool) {
+        // memory: 明示的にメモリ上にコピーすることを宣言
+        string memory _name = members[_addr].name;
+        ROLE _role = members[_addr].role;
+        bool _role_confirm = members[_addr].role_confirm;
+        return (_name, _role, _role_confirm);
     }
 
     // 有権者情報の確認(デバッグ用の関数)
     function view_voter(address _addr) public view returns(string, string, bool) {
-        return (voters[_addr].name, voters[_addr].city, voters[_addr].vote_flag);
+        string memory _name = voters[_addr].name;
+        string memory _city = voters[_addr].city;
+        bool _vote_flag = voters[_addr].vote_flag;
+        return (_name, _city, _vote_flag);
     }
 
-    // // 候補者情報の確認
-    // function view_candidate(address _addr) public view returns(string, string, string) {
-    //     return (candidates[_addr].name, candidates[_addr].city, candidates[_addr].party);
-    // }
+    // 候補者情報の確認
+    function view_candidate(address _addr) public view returns(string, string, string) {
+        string memory _name = candidates[_addr].name;
+        string memory _city = candidates[_addr].city;
+        string memory _party = candidates[_addr].party;
+        return (_name, _city, _party);
+    }
 
     /// modifier
     // 自分のメンバーIDのみ実行
