@@ -92,12 +92,8 @@ contract Secure_Vote_Chain {
         delete voters[_addr];
     }
 
-    // 投票
-    // 本人
-    // 有権者
-    // 市
-    // 投票フラグ
-    function vote(address _addr, address _candidate_addr) only_account_owner(_addr) only_voter(_addr) public {
+    // 投票(投票記録の追加)
+    function vote(address _addr, address _candidate_addr) only_account_owner(_addr) only_voter(_addr) only_non_voter(_addr) public {
         votes[vote_count].voter_addr = _addr;
         votes[vote_count].candidate_addr = _candidate_addr;
         votes[vote_count].vote_time = 11;
@@ -146,6 +142,12 @@ contract Secure_Vote_Chain {
     // 選挙管理委員のみ実行
     modifier only_ADMIN {
         require(msg.sender == ADMIN_addr);
+        _;
+    }
+
+    // 未投票者のみ
+    modifier only_non_voter(address _addr) {
+        require(voters[_addr].vote_flag == false);
         _;
     }
 }
