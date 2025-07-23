@@ -42,6 +42,7 @@ contract Secure_Vote_Chain {
     }
 
     mapping (uint => VOTES) votes;
+    uint public vote_count = 0;
 
     // コンストラクタ
     constructor() public {
@@ -91,6 +92,19 @@ contract Secure_Vote_Chain {
         delete voters[_addr];
     }
 
+    // 投票
+    // 本人
+    // 有権者
+    // 市
+    // 投票フラグ
+    function vote(address _addr, address _candidate_addr) only_account_owner(_addr) only_voter(_addr) public {
+        votes[vote_count].voter_addr = _addr;
+        votes[vote_count].candidate_addr = _candidate_addr;
+        votes[vote_count].vote_time = 11;
+        voters[_addr].vote_flag = true; // Use _addr instead of vote_count
+        vote_count++;
+    }
+
     // メンバー情報の確認(デバッグ用の関数)
     function view_member(address _addr) public view returns(string, ROLE, bool) {
         // memory: 明示的にメモリ上にコピーすることを宣言
@@ -128,7 +142,7 @@ contract Secure_Vote_Chain {
         require(members[_addr].role == ROLE.VOTER);
         _;
     }
-    
+
     // 選挙管理委員のみ実行
     modifier only_ADMIN {
         require(msg.sender == ADMIN_addr);
