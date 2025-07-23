@@ -93,7 +93,7 @@ contract Secure_Vote_Chain {
     }
 
     // 投票(投票記録の追加)
-    function vote(address _addr, address _candidate_addr) only_account_owner(_addr) only_voter(_addr) only_non_voter(_addr) public {
+    function vote(address _addr, address _candidate_addr, string _city) only_account_owner(_addr) only_voter(_addr) only_non_voter(_addr) only_voters_living_city(_addr, _city) public {
         votes[vote_count].voter_addr = _addr;
         votes[vote_count].candidate_addr = _candidate_addr;
         votes[vote_count].vote_time = 11;
@@ -142,6 +142,14 @@ contract Secure_Vote_Chain {
     // 選挙管理委員のみ実行
     modifier only_ADMIN {
         require(msg.sender == ADMIN_addr);
+        _;
+    }
+
+    // 該当する市に住んでいる人のみ
+    modifier only_voters_living_city(address _addr, string _city) {
+        // ストレージ内の文字列とメモリ内の文字列を直接比較することができないため
+        string memory voter_city = voters[_addr].city;
+        require(keccak256(bytes(voter_city)) == keccak256(bytes(_city)));
         _;
     }
 
