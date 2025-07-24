@@ -121,12 +121,20 @@ contract Secure_Vote_Chain {
         return (_name, _city, _vote_flag);
     }
 
-    // 候補者情報の確認
+    // 候補者情報の確認(デバッグ用の関数)
     function view_candidate(address _addr) public view returns(string, string, string) {
         string memory _name = candidates[_addr].name;
         string memory _city = candidates[_addr].city;
         string memory _party = candidates[_addr].party;
         return (_name, _city, _party);
+    }
+
+    // 投票情報の確認(デバッグ用の関数)
+    function view_votes(uint _vote_count) public view returns(address, address, uint) {
+        address _voter_addr = votes[_vote_count].voter_addr;
+        address _candidate_addr = votes[_vote_count].candidate_addr;
+        uint _vote_time = votes[_vote_count].vote_time;
+        return (_voter_addr, _candidate_addr, _vote_time);
     }
 
     /// modifier

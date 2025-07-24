@@ -145,6 +145,33 @@
 				"type": "function"
 			},
 			{
+				"constant": true,
+				"inputs": [
+					{
+						"name": "_vote_count",
+						"type": "uint256"
+					}
+				],
+				"name": "view_votes",
+				"outputs": [
+					{
+						"name": "",
+						"type": "address"
+					},
+					{
+						"name": "",
+						"type": "address"
+					},
+					{
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
 				"constant": false,
 				"inputs": [
 					{
@@ -226,9 +253,9 @@
 	},
 	"sources": {
 		"main.sol": {
-			"keccak256": "0x1d76878c627bd639eaf0e9e4300dccd131a4d3293325a2382b0ff9f8cc087853",
+			"keccak256": "0x87bae06ec501b471a2060a34ddbb565e745c508ccda97cdfbe45846425182f35",
 			"urls": [
-				"bzzr://9e0c063487a5dc25a289c4a8aee5da6166ab61cf317f9de459044707512e5fa0"
+				"bzzr://7266b9896a11226a65afb9995e858fd532667d80cc16cb58562f3a145418f750"
 			]
 		}
 	},
