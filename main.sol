@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ~0.4.24;
+pragma experimental ABIEncoderV2;
 
 contract Secure_Vote_Chain {
     // 有権者、候補者
@@ -24,6 +25,7 @@ contract Secure_Vote_Chain {
     }
 
     mapping (address => VOTERS) voters;
+    address[] public voterAddresses;
 
     // 候補者情報
     struct CANDIDATES {
@@ -64,6 +66,12 @@ contract Secure_Vote_Chain {
 
     // 有権者情報を登録する関数(有権者以外の登録は許容しないシステム設計)
     function add_infor(address _addr, string _name, string _city) only_account_owner(_addr) public {
+        // 新しい有権者の場合のみ voterAddresses に追加
+        // 既存のmembers[_addr].nameが空かどうかで新規登録かを判断
+        if (bytes(members[_addr].name).length == 0) {
+            voterAddresses.push(_addr);
+        }
+
         members[_addr].name = _name;
         members[_addr].role = ROLE.VOTER;
         members[_addr].role_confirm = true;
@@ -91,7 +99,6 @@ contract Secure_Vote_Chain {
         candidates[_addr].city = _city;
         candidates[_addr].party = _party;
 
-        // 有権者情報の消去
         delete voters[_addr];
     }
 
@@ -135,6 +142,43 @@ contract Secure_Vote_Chain {
         address _candidate_addr = votes[_vote_count].candidate_addr;
         uint _vote_time = votes[_vote_count].vote_time;
         return (_voter_addr, _candidate_addr, _vote_time);
+    }
+
+    // デモで使用
+    function getAllVotersInfo() public view returns (
+        address[] memory,
+        string[] memory,
+        ROLE[] memory,
+        bool[] memory,
+        string[] memory,
+        bool[] memory
+    ) {
+        uint voterCount = voterAddresses.length;
+        address[] memory _voterAddresses = new address[](voterCount);
+        string[] memory _names = new string[](voterCount);
+        ROLE[] memory _roles = new ROLE[](voterCount);
+        bool[] memory _roleConfirms = new bool[](voterCount);
+        string[] memory _cities = new string[](voterCount);
+        bool[] memory _voteFlags = new bool[](voterCount);
+
+        for (uint i = 0; i < voterCount; i++) {
+            address currentAddress = voterAddresses[i];
+            _voterAddresses[i] = currentAddress;
+            _names[i] = members[currentAddress].name;
+            _roles[i] = members[currentAddress].role;
+            _roleConfirms[i] = members[currentAddress].role_confirm;
+            _cities[i] = voters[currentAddress].city;
+            _voteFlags[i] = voters[currentAddress].vote_flag;
+        }
+
+        return (
+            _voterAddresses,
+            _names,
+            _roles,
+            _roleConfirms,
+            _cities,
+            _voteFlags
+        );
     }
 
     /// modifier
