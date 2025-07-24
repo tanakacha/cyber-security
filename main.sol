@@ -63,10 +63,13 @@ contract Secure_Vote_Chain {
     }
 
     // 有権者情報を登録する関数(有権者以外の登録は許容しないシステム設計)
-    function add_infor(address _addr, string _name) only_account_owner(_addr) public {
+    function add_infor(address _addr, string _name, string _city) only_account_owner(_addr) public {
         members[_addr].name = _name;
         members[_addr].role = ROLE.VOTER;
-        members[_addr].role_confirm = false;
+        members[_addr].role_confirm = true;
+        voters[_addr].name = _name;
+        voters[_addr].city = _city;
+        voters[_addr].vote_flag = false;
     }
 
     // 有権者が立候補
@@ -93,7 +96,7 @@ contract Secure_Vote_Chain {
     }
 
     // 投票(投票記録の追加)
-    function vote(address _addr, address _candidate_addr, string _city) only_account_owner(_addr) only_voter(_addr) only_non_voter(_addr) only_voters_living_city(_addr, _city) public {
+    function vote(address _addr, address _candidate_addr, string _city) only_approved_candidate(_candidate_addr)only_account_owner(_addr) only_voter(_addr) only_non_voter(_addr) only_voters_living_city(_addr, _candidate_addr, _city) public {
         votes[vote_count].voter_addr = _addr;
         votes[vote_count].candidate_addr = _candidate_addr;
         votes[vote_count].vote_time = 11;
@@ -146,10 +149,11 @@ contract Secure_Vote_Chain {
     }
 
     // 該当する市に住んでいる人のみ
-    modifier only_voters_living_city(address _addr, string _city) {
+    modifier only_voters_living_city(address _addr, address _candidate_addr, string _city) {
         // ストレージ内の文字列とメモリ内の文字列を直接比較することができないため
         string memory voter_city = voters[_addr].city;
-        require(keccak256(bytes(voter_city)) == keccak256(bytes(_city)));
+        string memory candidate_city = candidates[_candidate_addr].city;
+        require((keccak256(bytes(voter_city)) == keccak256(bytes(_city))) && (keccak256(bytes(voter_city)) == keccak256(bytes(candidate_city))));
         _;
     }
 
@@ -158,4 +162,11 @@ contract Secure_Vote_Chain {
         require(voters[_addr].vote_flag == false);
         _;
     }
+
+    // 候補者が承認されている場合のみ
+    modifier only_approved_candidate(address _addr) {
+        require(members[_addr].role_confirm == true);
+        _;
+    }
+
 }
