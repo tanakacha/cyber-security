@@ -38,13 +38,31 @@
 					{
 						"name": "_addr",
 						"type": "address"
+					}
+				],
+				"name": "disapproval_candidate",
+				"outputs": [],
+				"payable": false,
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"constant": false,
+				"inputs": [
+					{
+						"name": "_addr",
+						"type": "address"
 					},
 					{
 						"name": "_city",
 						"type": "string"
+					},
+					{
+						"name": "_party",
+						"type": "string"
 					}
 				],
-				"name": "register_voter",
+				"name": "become_candidate",
 				"outputs": [],
 				"payable": false,
 				"stateMutability": "nonpayable",
@@ -85,15 +103,15 @@
 						"type": "address"
 					},
 					{
-						"name": "_name",
-						"type": "string"
+						"name": "_candidate_addr",
+						"type": "address"
 					},
 					{
-						"name": "_role",
-						"type": "uint8"
+						"name": "_city",
+						"type": "string"
 					}
 				],
-				"name": "register_member",
+				"name": "vote",
 				"outputs": [],
 				"payable": false,
 				"stateMutability": "nonpayable",
@@ -132,20 +150,26 @@
 					{
 						"name": "_addr",
 						"type": "address"
-					},
-					{
-						"name": "_city",
-						"type": "string"
-					},
-					{
-						"name": "_party",
-						"type": "string"
 					}
 				],
-				"name": "change_condidate",
+				"name": "approval_candidate",
 				"outputs": [],
 				"payable": false,
 				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"constant": true,
+				"inputs": [],
+				"name": "vote_count",
+				"outputs": [
+					{
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
 				"type": "function"
 			},
 			{
@@ -154,9 +178,17 @@
 					{
 						"name": "_addr",
 						"type": "address"
+					},
+					{
+						"name": "_name",
+						"type": "string"
+					},
+					{
+						"name": "_city",
+						"type": "string"
 					}
 				],
-				"name": "approval_condidate",
+				"name": "add_infor",
 				"outputs": [],
 				"payable": false,
 				"stateMutability": "nonpayable",
@@ -173,7 +205,11 @@
 			"methods": {}
 		},
 		"userdoc": {
-			"methods": {}
+			"methods": {
+				"approval_candidate(address)": {
+					"notice": "関数"
+				}
+			}
 		}
 	},
 	"settings": {
@@ -190,9 +226,9 @@
 	},
 	"sources": {
 		"main.sol": {
-			"keccak256": "0x72a793c315cda17cbe5778503ef732dba795eec9507d3cc699bc72d4717e898b",
+			"keccak256": "0x1d76878c627bd639eaf0e9e4300dccd131a4d3293325a2382b0ff9f8cc087853",
 			"urls": [
-				"bzzr://afda6f9d32c3a8307aaf1eb493803d1011aebe4aff6b68d46cfec220fd7633a4"
+				"bzzr://9e0c063487a5dc25a289c4a8aee5da6166ab61cf317f9de459044707512e5fa0"
 			]
 		}
 	},
